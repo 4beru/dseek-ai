@@ -11,16 +11,26 @@ import java.util.Locale
 
 /** Nonsecret appearance choice, independent of pairing, drafts and encrypted caches. */
 internal enum class LanguagePreference(val tag: String) {
-    SYSTEM(""), RUSSIAN("ru"), ENGLISH("en");
+    SYSTEM(""), ENGLISH("en"), SPANISH("es");
 
     companion object {
         fun fromTag(tag: String?): LanguagePreference? = when (tag?.substringBefore('-')?.lowercase(Locale.ROOT)) {
             null, "" -> SYSTEM
-            "ru" -> RUSSIAN
             "en" -> ENGLISH
+            "es" -> SPANISH
             else -> null // A foreign pin is not the system default: no picker option is selected.
         }
     }
+}
+
+/** Match the supported resource language for display formats, preserving compatible regional tags.
+ * Unsupported or former Russian pins remain untouched in storage and use the resource fallback. */
+internal fun presentationLocale(locales: LocaleList): Locale {
+    for (index in 0 until locales.size()) {
+        val locale = locales[index]
+        if (LanguagePreference.fromTag(locale.toLanguageTag()) in listOf(LanguagePreference.ENGLISH, LanguagePreference.SPANISH)) return locale
+    }
+    return Locale.ENGLISH
 }
 
 internal const val LANGUAGE_PREFERENCES = "mobile_language"

@@ -192,4 +192,4 @@ internal fun AttachmentChips(items: List<UploadState>, imagesBlocked: Boolean, o
         }
     }
 }
-internal fun fileMeta(context: Context, name: String, size: Long) = "${name.substringAfterLast('.', "FILE").uppercase()} · ${android.text.format.Formatter.formatShortFileSize(context, size)}"
+internal fun fileMeta(context: Context, name: String, size: Long) = "${name.substringAfterLast('.', context.getString(R.string.mobile_file_type)).uppercase(java.util.Locale.ROOT)} · ${dev.dshmobile.app.ui.components.formattedFileSize(context, size)}"

@@ -18,6 +18,9 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // Only the supported interface languages, including dependency-provided UI copy.
+    androidResources { localeFilters += listOf("en", "es") }
+
     // Both interface languages must be installed before an offline in-app switch.
     bundle { language { enableSplit = false } }
 

@@ -14,7 +14,7 @@ import org.robolectric.annotation.Config
 
 @org.robolectric.annotation.ConscryptMode(org.robolectric.annotation.ConscryptMode.Mode.OFF)
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [28], qualifiers = "ru-rRU-w400dp-h800dp")
+@Config(sdk = [28], qualifiers = "es-rES-w400dp-h800dp")
 @org.robolectric.annotation.GraphicsMode(org.robolectric.annotation.GraphicsMode.Mode.NATIVE)
 class PhoneNotificationSettingsTest {
     @get:Rule val compose = createAndroidComposeRule<androidx.activity.ComponentActivity>()
@@ -24,13 +24,13 @@ class PhoneNotificationSettingsTest {
         compose.onAllNodes(isToggleable()).assertCountEquals(1)
         compose.onNode(isToggleable()).assertIsOn().performClick().assertIsOff()
         assertFalse(enabled)
-        compose.onNodeWithText("Системные настройки уведомлений").assertIsDisplayed()
+        compose.onNodeWithText("Ajustes de notificaciones del sistema").assertIsDisplayed()
     }
     @Test fun absentCapabilityShowsNeutralHintAndSingleSwitch() {
         compose.setContent { MaterialTheme { Column { NotificationSettingsContent(true, false, false, false, {}, {}, supported = false) } } }
         compose.onAllNodes(isToggleable()).assertCountEquals(1)
-        compose.onNodeWithText("Уведомления о результате задач доступны, если подключённый компьютер поддерживает эту функцию.").assertIsDisplayed()
-        compose.onNodeWithText("Сообщим, когда задача", substring = true).assertDoesNotExist()
+        compose.onNodeWithText("Las notificaciones de resultados de tareas están disponibles si la computadora conectada las admite.").assertIsDisplayed()
+        compose.onNodeWithText("Recibe avisos cuando una tarea", substring = true).assertDoesNotExist()
         val renderDirectory = System.getProperty("dsh.render.dir") ?: System.getenv("DSH_ANDROID_RENDER_DIR")
         println("DSH settings render directory: ${renderDirectory ?: "not requested"}")
         renderDirectory?.let { directory -> compose.runOnIdle {
@@ -45,6 +45,6 @@ class PhoneNotificationSettingsTest {
     @Test fun `N6 permission missing and busy render honest disabled controls`() {
         compose.setContent { MaterialTheme { Column { NotificationSettingsContent(true, true, false, true, {}, {}) } } }
         compose.onNode(isToggleable()).assertIsOff().assertIsNotEnabled()
-        compose.onNodeWithText("Не удалось включить уведомления.", substring = true).assertIsDisplayed()
+        compose.onNodeWithText("No se pudieron activar las notificaciones.", substring = true).assertIsDisplayed()
     }
 }

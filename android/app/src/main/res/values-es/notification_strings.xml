@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif_title">Notificaciones</string>
+    <string name="notif_answers_channel">Respuestas del agente</string>
+    <string name="notif_attention_channel">Se requiere tu decisión</string>
+    <string name="notif_answer_ready">Respuesta lista</string>
+    <string name="notif_needs_decision">Se requiere una respuesta</string>
+    <string name="notif_rationale">Recibe avisos cuando una tarea enviada desde este teléfono termine o necesite tu respuesta. Toca para abrir su chat. Si no hay tareas activas del teléfono, se detiene la conexión en segundo plano.</string>
+    <string name="notif_blocked">No se pudieron activar las notificaciones. Revisa el permiso de notificaciones y las restricciones del sistema y vuelve a intentarlo.</string>
+    <string name="notif_system">Ajustes de notificaciones del sistema</string>
+    <string name="notif_unnamed_chat">Chat sin título</string>
+    <string name="notif_watch_channel">Tareas del teléfono</string>
+    <string name="notif_watch_title">Esperando el resultado de la tarea</string>
+    <string name="notif_watch_body">Tarea enviada desde este teléfono</string>
+    <string name="notif_task_failed">Error en la tarea</string>
+    <string name="notif_outcomes_unavailable">Las notificaciones de resultados de tareas están disponibles si la computadora conectada las admite.</string>
+</resources>

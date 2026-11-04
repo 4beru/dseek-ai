@@ -130,14 +130,14 @@ internal fun LanguageSettingsContent(value: dev.dshmobile.app.locale.LanguagePre
     SettingsChoiceList(dev.dshmobile.app.locale.LanguagePreference.entries, value,
         label = { option -> stringResource(when (option) {
             dev.dshmobile.app.locale.LanguagePreference.SYSTEM -> R.string.mobile_language_system
-            dev.dshmobile.app.locale.LanguagePreference.RUSSIAN -> R.string.mobile_language_russian
             dev.dshmobile.app.locale.LanguagePreference.ENGLISH -> R.string.mobile_language_english
+            dev.dshmobile.app.locale.LanguagePreference.SPANISH -> R.string.mobile_language_spanish
         }) },
         tag = { option -> "language_${option.name.lowercase()}" }, onChange = onChange)
 }
 
 /**
- * Single-choice setting as a list, not a segmented control: "System default" / «Как в системе» do not fit a
+ * Single-choice setting as a list, not a segmented control: "System default" / "Idioma del sistema" do not fit a
  * third of a narrow phone, and equal segments either truncate or wrap unevenly. Same answer as the system-link
  * list in notifications: full-width rows with hairlines, long labels and large font scales wrap inside a row.
  */

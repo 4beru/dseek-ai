@@ -20,7 +20,7 @@ import org.robolectric.annotation.*
 import org.robolectric.shadows.ShadowSystemClock
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [28], qualifiers = "ru-rRU-w400dp-h800dp")
+@Config(sdk = [28], qualifiers = "es-rES-w400dp-h800dp")
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @ConscryptMode(ConscryptMode.Mode.OFF)
 class VisibleChatNotificationTest {

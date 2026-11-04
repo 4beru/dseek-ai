@@ -16,13 +16,13 @@ class ProjectCountResourceTest {
         assertEquals("0 chats", String.format(Locale.ENGLISH, forms.getValue("other"), 0))
     }
 
-    @Test fun `Russian project count supplies all CLDR forms and expected examples`() {
-        val forms = projectCountForms("values-ru")
-        assertEquals(setOf("one", "few", "many", "other"), forms.keys)
-        val examples = listOf(Triple(1, "one", "1 чат"), Triple(2, "few", "2 чата"), Triple(5, "many", "5 чатов"),
-            Triple(21, "one", "21 чат"), Triple(22, "few", "22 чата"), Triple(11, "many", "11 чатов"), Triple(0, "many", "0 чатов"))
+    @Test fun `Spanish project count supplies singular and plural forms and expected examples`() {
+        val forms = projectCountForms("values-es")
+        assertEquals(setOf("one", "other"), forms.keys)
+        val examples = listOf(Triple(1, "one", "1 chat"), Triple(2, "other", "2 chats"), Triple(5, "other", "5 chats"),
+            Triple(21, "other", "21 chats"), Triple(22, "other", "22 chats"), Triple(11, "other", "11 chats"), Triple(0, "other", "0 chats"))
         examples.forEach { (count, category, expected) ->
-            assertEquals(expected, String.format(Locale.forLanguageTag("ru"), forms.getValue(category), count))
+            assertEquals(expected, String.format(Locale.forLanguageTag("es"), forms.getValue(category), count))
         }
     }
 

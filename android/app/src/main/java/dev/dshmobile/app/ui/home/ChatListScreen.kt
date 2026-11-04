@@ -38,6 +38,7 @@ import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.dshmobile.app.R
+import dev.dshmobile.app.locale.presentationLocale
 import dev.dshmobile.app.model.*
 import dev.dshmobile.app.ui.LazyItemKeys
 import dev.dshmobile.app.ui.MobileIcons
@@ -56,7 +57,7 @@ internal fun ChatListScreen(state: MobileState, query: String, onQuery: (String)
     val sessions = state.sessions // Disk index is presentation only; connection still gates all host actions.
     val projects = remember(state.workspaces, sessions) { projectSummaries(state.workspaces, sessions) }
     val visible = remember(sessions, query, projectId) { filterSessions(sessions, projectId, query) }
-    val locale = LocalConfiguration.current.locales[0]
+    val locale = presentationLocale(LocalConfiguration.current.locales)
     val now = remember(visible, locale, state.lastSyncedAt) { System.currentTimeMillis() }
     val groups = remember(visible, locale, now) { groupSessionsByDate(visible, now, locale = locale) }
     val list = rememberLazyListState()

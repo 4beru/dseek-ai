@@ -125,12 +125,12 @@ class LanguageAcceptanceTest {
                 assertLanguage(expected)
                 return@runBlocking
             }
-            choose(LanguagePreference.RUSSIAN)
-            assertLanguage(LanguagePreference.RUSSIAN)
-            compose.onNodeWithText("Язык").assertIsDisplayed()
-            capture("settings-ru-api${Build.VERSION.SDK_INT}")
+            choose(LanguagePreference.SPANISH)
+            assertLanguage(LanguagePreference.SPANISH)
+            compose.onNodeWithText("Idioma").assertIsDisplayed()
+            capture("settings-es-api${Build.VERSION.SDK_INT}")
             scenario!!.close(); launch()
-            assertLanguage(LanguagePreference.RUSSIAN)
+            assertLanguage(LanguagePreference.SPANISH)
             choose(LanguagePreference.ENGLISH)
             assertLanguage(LanguagePreference.ENGLISH)
             compose.onNodeWithText("Language").assertIsDisplayed()

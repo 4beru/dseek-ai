@@ -14,9 +14,9 @@ class LanguagePreferenceTest {
     }
 
     @Test fun `supported platform regional tags map to picker and persisted choices round trip`() {
-        assertEquals(LanguagePreference.RUSSIAN, LanguagePreference.fromTag("ru-RU"))
+        assertEquals(LanguagePreference.SPANISH, LanguagePreference.fromTag("es-ES"))
         assertEquals(LanguagePreference.ENGLISH, LanguagePreference.fromTag("en-US"))
-        assertEquals("ru", LanguagePreference.RUSSIAN.tag)
+        assertEquals("es", LanguagePreference.SPANISH.tag)
         assertEquals("en", LanguagePreference.ENGLISH.tag)
         LanguagePreference.entries.forEach { assertEquals(it, LanguagePreference.fromTag(it.tag)) }
     }

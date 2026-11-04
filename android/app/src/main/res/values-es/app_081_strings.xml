@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mobile_attach_photo_name">Foto %1$d</string>
+    <string name="mobile_attach_pending">“%1$s” en cola, se subirá automáticamente</string>
+    <string name="mobile_prompt_attachments">Archivos adjuntos: %1$d</string>
+    <string name="mobile_viewer_previous">Imagen anterior</string>
+    <string name="mobile_viewer_next">Siguiente imagen</string>
+    <string name="mobile_attach_camera_permission">Para tomar fotos, permite el acceso a la cámara en los ajustes de la app o elige una foto existente.</string>
+    <string name="mobile_attach_waiting">En cola</string>
+</resources>

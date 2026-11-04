@@ -118,7 +118,7 @@ try {
     $settingsChanged=$true; $appLocalesChanged=$true
     $null=Invoke-Adb @('shell','settings','put','system','font_scale','1.0')
     $null=Invoke-Adb @('shell','cmd','uimode','night','yes')
-    $null=Invoke-Adb @('shell','cmd','locale','set-app-locales',$package,'--locales','ru')
+    $null=Invoke-Adb @('shell','cmd','locale','set-app-locales',$package,'--locales','es')
     Run-Stage 'redesignCapture' 'pairing-dark'
     Run-Stage 'pairOnly' '' $initialJson
     $initialJson=$null; $config=$null; $invitation=$null
@@ -141,7 +141,7 @@ finally {
                 $p=[IO.File]::ReadAllText($metadata) | ConvertFrom-Json
                 $scale=if ($name -eq 'home-font130') {1.3} else {1.0}
                 $theme=if ($name -eq 'home-light') {'LIGHT'} else {'DARK'}
-                $locale=if ($name -eq 'home-dark-en') {'en'} else {'ru'}
+                $locale=if ($name -eq 'home-dark-en') {'en'} else {'es'}
                 if ($p.source -ne 'android.app.UiAutomation.takeScreenshot' -or $p.width -lt 1 -or $p.height -lt 1 -or $p.mode -cne 'fixture' -or -not $p.fixtureOnly -or $p.isolatedDshCanary -or $p.productionCanary -or $p.externalModel -or [Math]::Abs($p.fontScale-$scale) -gt 0.02 -or $p.themePreference -cne $theme -or $p.locale -notmatch "^$locale(-|$)") { throw 'Capture provenance invalid.' }
             }
         } catch { $receipt.capturePullFailed=$true; $receipt.passed=$false }

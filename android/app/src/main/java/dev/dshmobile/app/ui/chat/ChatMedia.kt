@@ -334,7 +334,7 @@ internal fun ImageViewer(refs: List<AttachmentRef>, initial: Int, cache: ImageMe
                     }
                     Column(verticalArrangement = Arrangement.spacedBy(Spacing.XXS)) {
                         Text(ref.name, color = Color.White, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
-                        Text("${decoded?.width ?: 0} × ${decoded?.height ?: 0} · ${android.text.format.Formatter.formatShortFileSize(context, ref.size)}" + (timestamp?.let { " · ${shortTime(it)}" } ?: ""), color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.labelSmall)
+                        Text("${decoded?.width ?: 0} × ${decoded?.height ?: 0} · ${dev.dshmobile.app.ui.components.formattedFileSize(context, ref.size)}" + (timestamp?.let { " · ${shortTime(it)}" } ?: ""), color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.labelSmall)
                     }
                 }
             }

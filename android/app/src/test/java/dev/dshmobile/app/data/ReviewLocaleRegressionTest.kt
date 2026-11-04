@@ -22,7 +22,7 @@ class ReviewLocaleRegressionTest {
         val manager = app.getSystemService(NotificationManager::class.java)
         ensureNotificationChannels(app)
         for (kind in listOf("error", "attention", "answer")) {
-            app.getSharedPreferences("mobile_language", 0).edit().putString("language", "ru").commit()
+            app.getSharedPreferences("mobile_language", 0).edit().putString("language", "es").commit()
             val alert = WatchAlert("key-$kind", "chat", "turn", kind, "", "Synthetic failure 😀\nline", Long.MAX_VALUE)
             store.update { NotificationLocal(deviceId = "device", outbox = listOf(alert)) }
             NotificationPosting.recordForegroundPost()

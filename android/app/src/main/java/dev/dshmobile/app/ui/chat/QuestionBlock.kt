@@ -70,6 +70,7 @@ internal fun QuestionBlock(pending: PendingQuestion, draft: QuestionAnswer?, rea
         onChange(local)
     }
     val previous = stringResource(R.string.mobile_question_prev)
+    val stepDescription = stringResource(R.string.mobile_question_step, step + 1, pending.questions.size)
     val enabled = !readOnly && !submitting
     Column(Modifier.fillMaxWidth().testTag("question_${pending.callId}").semantics {
         heading(); liveRegion = LiveRegionMode.Polite
@@ -83,7 +84,7 @@ internal fun QuestionBlock(pending: PendingQuestion, draft: QuestionAnswer?, rea
             Icon(MobileIcons.Question, null, Modifier.size(16.dp)); Spacer(Modifier.width(8.dp))
             Text(question.header.orEmpty(), Modifier.weight(1f), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (pending.questions.size > 1) Text("${step + 1} / ${pending.questions.size}", style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.semantics { contentDescription = "${step + 1} / ${pending.questions.size}" })
+                modifier = Modifier.semantics { contentDescription = stepDescription })
         }
         if (focusTarget) {
             val color = MaterialTheme.colorScheme.onSurface

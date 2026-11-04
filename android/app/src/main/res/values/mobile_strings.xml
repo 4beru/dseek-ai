@@ -138,7 +138,7 @@
     <string name="mobile_relay_host">Relay server: %1$s</string>
     <string name="mobile_remote_explanation">Connection uses this server without a separate VPN. The certificate fingerprint still verifies the PC identity.</string>
     <string name="mobile_pc_online_required">The PC must be on, online and running DSH. This app cannot wake it.</string>
-    <string name="mobile_brand">DSH</string>
+    <string name="mobile_brand">DSeek</string>
     <string name="mobile_search_chats">Search chats</string>
     <string name="mobile_search_projects">Search projects</string>
     <string name="mobile_clear_search">Clear search</string>
@@ -187,8 +187,8 @@
     <string name="mobile_waiting_desktop">Waiting for an answer on the computer</string>
     <string name="mobile_language">Language</string>
     <string name="mobile_language_system">System default</string>
-    <string name="mobile_language_russian">Русский</string>
     <string name="mobile_language_english">English</string>
+    <string name="mobile_language_spanish">Español</string>
     <string name="mobile_theme">Theme</string>
     <string name="mobile_theme_dark">Dark</string>
     <string name="mobile_theme_light">Light</string>

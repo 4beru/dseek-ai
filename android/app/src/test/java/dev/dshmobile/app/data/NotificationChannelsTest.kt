@@ -25,9 +25,9 @@ class NotificationChannelsTest {
         assertEquals(NotificationManager.IMPORTANCE_LOW, manager.getNotificationChannel("answers_alert_v2").importance)
         assertNull(manager.getNotificationChannel("answers_alert_v2").sound)
         assertNull(manager.getNotificationChannel("answers_silent_v2"))
-        val ru = app.createConfigurationContext(android.content.res.Configuration(app.resources.configuration).apply { setLocale(java.util.Locale.forLanguageTag("ru")) })
-        refreshNotificationChannelNames(ru)
-        assertEquals("Ответы агента", manager.getNotificationChannel("answers_alert_v2").name.toString())
+        val es = app.createConfigurationContext(android.content.res.Configuration(app.resources.configuration).apply { setLocale(java.util.Locale.forLanguageTag("es")) })
+        refreshNotificationChannelNames(es)
+        assertEquals("Respuestas del agente", manager.getNotificationChannel("answers_alert_v2").name.toString())
         assertEquals(NotificationManager.IMPORTANCE_LOW, manager.getNotificationChannel("answers_alert_v2").importance)
     }
 }

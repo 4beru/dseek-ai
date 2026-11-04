@@ -14,7 +14,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import android.content.Context
+import android.content.res.Configuration
 import dev.dshmobile.app.R
+import dev.dshmobile.app.locale.presentationLocale
 import dev.dshmobile.app.model.*
 import dev.dshmobile.app.ui.MobileIcons
 import dev.dshmobile.app.ui.safeErrorResource
@@ -30,10 +33,17 @@ internal fun canEditDraft(state: MobileState, interactionBlocked: Boolean = fals
 internal fun canCancel(state: MobileState) = state.connection == ConnectionState.ONLINE && state.capabilities?.cancel == true && executable(state) && !state.busy && !state.snapshotStale && state.pending == null && state.snapshot?.activity == "running" && state.snapshot.session.running
 @Composable
 internal fun formattedTime(time: Long): String = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT,
-    androidx.compose.ui.platform.LocalConfiguration.current.locales[0]).format(Date(time))
+    presentationLocale(androidx.compose.ui.platform.LocalConfiguration.current.locales)).format(Date(time))
 @Composable
 internal fun shortTime(time: Long): String = DateFormat.getTimeInstance(DateFormat.SHORT,
-    androidx.compose.ui.platform.LocalConfiguration.current.locales[0]).format(Date(time))
+    presentationLocale(androidx.compose.ui.platform.LocalConfiguration.current.locales)).format(Date(time))
+
+/** Framework unit labels use the same display language as the app, even for unsupported system locales. */
+internal fun formattedFileSize(context: Context, size: Long): String {
+    val configuration = Configuration(context.resources.configuration)
+    configuration.setLocale(presentationLocale(configuration.locales))
+    return android.text.format.Formatter.formatShortFileSize(context.createConfigurationContext(configuration), size)
+}
 
 @Composable
 internal fun workspaceName(state: MobileState, id: String) = state.workspaces.find { it.id == id }?.name ?: stringResource(R.string.mobile_workspace_unknown)

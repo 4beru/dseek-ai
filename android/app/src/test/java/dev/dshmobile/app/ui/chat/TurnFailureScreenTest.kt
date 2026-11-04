@@ -18,7 +18,7 @@ import org.robolectric.annotation.GraphicsMode
 
 @org.robolectric.annotation.ConscryptMode(org.robolectric.annotation.ConscryptMode.Mode.OFF)
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [28], qualifiers = "ru-rRU-w400dp-h800dp")
+@Config(sdk = [28], qualifiers = "es-rES-w400dp-h800dp")
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class TurnFailureScreenTest {
     @get:Rule val compose = createAndroidComposeRule<androidx.activity.ComponentActivity>()
@@ -45,7 +45,7 @@ class TurnFailureScreenTest {
         override fun close() {}
     }
     @Test fun `AND02 actual chat preserves transcript and composer with maximum failure`() = render("portrait")
-    @Test @Config(qualifiers = "ru-rRU-w800dp-h400dp-land")
+    @Test @Config(qualifiers = "es-rES-w800dp-h400dp-land")
     fun `AND02 landscape actual chat preserves transcript and composer`() = render("landscape")
     private fun render(orientation: String) {
         val repo = Repo(); val vm = MobileViewModel(RuntimeEnvironment.getApplication()) { repo }

@@ -53,7 +53,7 @@ class WatchPlatformTest {
     }
     @Test fun actualNotificationManagerReplacesWaitingWithFinalAndTapTargetsChat() = runBlocking {
         val store = NotificationStore(MemoryWatchRecord(), StateCipher { javax.crypto.spec.SecretKeySpec(ByteArray(32) { 5 }, "AES") })
-        app.getSharedPreferences("mobile_language", 0).edit().putString("language", "ru").commit()
+        app.getSharedPreferences("mobile_language", 0).edit().putString("language", "es").commit()
         for (channel in notificationChannels) app.getSystemService(NotificationManager::class.java).createNotificationChannel(
             android.app.NotificationChannel(channel.id, channel.id, NotificationManager.IMPORTANCE_HIGH))
         val waiting = WatchAlert("waiting-key", "chat", "turn", "attention", "Synthetic", expiresAt = Long.MAX_VALUE)
@@ -63,14 +63,14 @@ class WatchPlatformTest {
         postWatchAlert(app, "device", waiting, false, store)
         val manager = app.getSystemService(NotificationManager::class.java)
         val first = manager.activeNotifications.single { it.id == 2 }
-        assertEquals("Нужен ответ", first.notification.extras.getString(Notification.EXTRA_TITLE))
+        assertEquals("Se requiere una respuesta", first.notification.extras.getString(Notification.EXTRA_TITLE))
         assertEquals(0, first.notification.flags and Notification.FLAG_ONLY_ALERT_ONCE)
         val final = waiting.copy(key = "final-key", kind = "answer")
         store.update { it.copy(outbox = listOf(final)) }
         org.robolectric.shadows.ShadowSystemClock.advanceBy(java.time.Duration.ofSeconds(1))
         postWatchAlert(app, "device", final, false, store)
         val second = manager.activeNotifications.single { it.id == 2 }
-        assertEquals(first.tag, second.tag); assertEquals("Ответ готов", second.notification.extras.getString(Notification.EXTRA_TITLE))
+        assertEquals(first.tag, second.tag); assertEquals("Respuesta lista", second.notification.extras.getString(Notification.EXTRA_TITLE))
         assertEquals(0, second.notification.flags and Notification.FLAG_ONLY_ALERT_ONCE)
         val intent = shadowOf(second.notification.contentIntent).savedIntent
         assertEquals("chat", intent.getStringExtra("notificationChat")); assertEquals("device", intent.getStringExtra("notificationDevice"))

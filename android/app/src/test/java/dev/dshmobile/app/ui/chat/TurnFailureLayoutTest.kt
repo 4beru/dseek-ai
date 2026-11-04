@@ -24,7 +24,7 @@ import java.io.File
 
 @org.robolectric.annotation.ConscryptMode(org.robolectric.annotation.ConscryptMode.Mode.OFF)
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [28], qualifiers = "ru-rRU-w400dp-h800dp")
+@Config(sdk = [28], qualifiers = "es-rES-w400dp-h800dp")
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class TurnFailureLayoutTest {
     @get:Rule val compose = createAndroidComposeRule<androidx.activity.ComponentActivity>()

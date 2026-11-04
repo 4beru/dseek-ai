@@ -203,8 +203,8 @@ try {
         $appLocalesChanged = $true
         $null = Invoke-Adb -Arguments @('shell', 'cmd', 'locale', 'set-app-locales', $package, '--locales', 'en')
         Run-Stage 'capture' 'chat-light-en'
-        $null = Invoke-Adb -Arguments @('shell', 'cmd', 'locale', 'set-app-locales', $package, '--locales', 'ru')
-        Run-Stage 'capture' 'chat-light-ru'
+        $null = Invoke-Adb -Arguments @('shell', 'cmd', 'locale', 'set-app-locales', $package, '--locales', 'es')
+        Run-Stage 'capture' 'chat-light-es'
     }
     $receipt.passed = $true
 } catch {
@@ -231,7 +231,7 @@ try {
                 finally { $stream.Dispose(); $process.Dispose() }
             }
             $requiredCaptures = @('onboarding-empty', 'chat-initial', 'chat-reopened', 'chat-light', 'chat-dark', 'chat-font130')
-            if ($sdk -ge 33) { $requiredCaptures += @('chat-light-en', 'chat-light-ru') }
+            if ($sdk -ge 33) { $requiredCaptures += @('chat-light-en', 'chat-light-es') }
             if (-not $SkipOffline) { $requiredCaptures += @('chat-offline', 'chat-recovered') }
             foreach ($name in $requiredCaptures) {
                 $image = Join-Path $artifacts "acceptance/$name.png"

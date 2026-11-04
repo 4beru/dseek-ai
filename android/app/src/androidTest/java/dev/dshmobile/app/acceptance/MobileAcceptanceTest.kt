@@ -100,7 +100,7 @@ class MobileAcceptanceTest {
                     assertCanonicalHistory(config)
                     assertDraft()
                     val name = args.getString("acceptanceCapture") ?: error("capture name required")
-                    require(name in setOf("chat-dark", "chat-font130", "chat-light-en", "chat-light-ru"))
+                    require(name in setOf("chat-dark", "chat-font130", "chat-light-en", "chat-light-es"))
                     verifyCaptureConfiguration(name)
                     capture(name)
                 }
@@ -366,7 +366,7 @@ class MobileAcceptanceTest {
                 "chat-dark" -> night == Configuration.UI_MODE_NIGHT_YES
                 "chat-font130" -> kotlin.math.abs(config.fontScale - 1.3f) < 0.02f && night == Configuration.UI_MODE_NIGHT_NO
                 "chat-light-en" -> config.locales[0].language == "en" && night == Configuration.UI_MODE_NIGHT_NO
-                "chat-light-ru" -> config.locales[0].language == "ru" && night == Configuration.UI_MODE_NIGHT_NO
+                "chat-light-es" -> config.locales[0].language == "es" && night == Configuration.UI_MODE_NIGHT_NO
                 else -> false
             }
         }

@@ -37,6 +37,7 @@ import kotlinx.coroutines.launch
 internal fun ChatScreen(state: MobileState, model: MobileViewModel, requestedSession: String?, onBack: () -> Unit, onConnection: () -> Unit) {
     val snackbars = remember { SnackbarHostState() }
     val clipboard = LocalClipboard.current
+    val appName = stringResource(R.string.app_name)
     val scope = rememberCoroutineScope()
     val context = androidx.compose.ui.platform.LocalContext.current
     val fileUnavailable = stringResource(R.string.mobile_file_unavailable)
@@ -53,7 +54,7 @@ internal fun ChatScreen(state: MobileState, model: MobileViewModel, requestedSes
         if (requestedSession != null) model.selectSession(requestedSession)
         else model.refresh()
     }
-    val onCopy: (String) -> Unit = { text -> scope.launch { clipboard.setClipEntry(ClipEntry(ClipData.newPlainText("DSH", text))); haptic(); snackbars.showSnackbar(copied) } }
+    val onCopy: (String) -> Unit = { text -> scope.launch { clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(appName, text))); haptic(); snackbars.showSnackbar(copied) } }
     var cancel by remember { mutableStateOf(false) }
     var rename by remember { mutableStateOf(false) }
     var models by remember { mutableStateOf(false) }

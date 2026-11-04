@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand label is identical in Russian and English. UI copy is Russian-first. -->
-    <string name="app_name" translatable="false">DSH Mobile</string>
+    <!-- Display name only. Package, application ID and desktop runtime names stay unchanged. -->
+    <string name="app_name" translatable="false">DSeek</string>
 </resources>

@@ -99,7 +99,7 @@ The presentation-only offline history cache holds at most 8 snapshots, 3500 KiB 
 
 ## First release slice
 
-Pair/import invitation, host connection status, workspace/preset selection, permitted sessions, bounded readable conversation history, new session, text prompt, live observation, stop active turn, reconnect/resync, local sign-out and remote device revocation. Native Material 3 UI, Russian/English resources, system light/dark, IME/safe-area support and font scaling.
+Pair/import invitation, host connection status, workspace/preset selection, permitted sessions, bounded readable conversation history, new session, text prompt, live observation, stop active turn, reconnect/resync, local sign-out and remote device revocation. Native Material 3 UI, English/Spanish resources, system light/dark, IME/safe-area support and font scaling. The Android display name is DSeek, without renaming technical components. See [I18N.md](I18N.md) for the presentation-only scope.
 
 ## Explicit later capabilities
 

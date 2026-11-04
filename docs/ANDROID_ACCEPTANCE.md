@@ -21,7 +21,7 @@ Check Windows PowerShell 5.1 AST parsing, native argv quoting, safety guards and
 - `androidTestImplementation("androidx.test:rules:1.7.0")`
 - `androidTestImplementation("androidx.test:core:1.7.0")`
 
-No `ui-test-manifest` or synthetic test Activity is required: `createEmptyComposeRule` synchronizes Compose while `ActivityScenario` launches/closes/recreates the production Activity. Test action labels use tags, not translated Russian/English UI strings. Assertions on fixture content use synthetic backend data, which is intentionally not translated.
+No `ui-test-manifest` or synthetic test Activity is required: `createEmptyComposeRule` synchronizes Compose while `ActivityScenario` launches/closes/recreates the production Activity. Test action labels use tags, not translated Spanish/English UI strings. Assertions on fixture content use synthetic backend data, which is intentionally not translated.
 
 Official references: [Compose test setup](https://developer.android.com/develop/ui/compose/testing), [external-work synchronization](https://developer.android.com/develop/ui/compose/testing/synchronization), [semantics selectors](https://developer.android.com/develop/ui/compose/testing/apis). Context7 retrieved these before implementation. External network completion uses `waitUntil`, followed by Compose idle; there are no blind sleeps.
 
@@ -104,7 +104,7 @@ adb -s emulator-5580 shell am instrument -w -r `
 | `restored` | New instrumentation process after app-only force-stop restores encrypted pairing, selected conversation and unsent draft; online authoritative history contains one visible canonical prompt/answer. |
 | `offline` | Fixture reverse removed before cold launch; offline state/reconnect action; no enabled send or create control. No fabricated persisted transcript/composer requirement. Recovered stage checks draft was not silently sent. |
 | `recovered` | Reverse restored, explicit reconnect when present; online authoritative history restored without visible duplication; draft preserved and send enabled but not clicked. |
-| `capture` | Native chat dark and light/font 1.3 screenshots; assert actual Activity configuration before saving. Required `chat-light-en` and `chat-light-ru` use checked per-app locales, never hardcoded translated selectors. |
+| `capture` | Native chat dark and light/font 1.3 screenshots; assert actual Activity configuration before saving. Required `chat-light-en` and `chat-light-es` use checked per-app locales, never hardcoded translated selectors. |
 
 `chat_timeline` must be the scrollable `LazyColumn`, not merely an outer `Box`, so `performScrollToNode` exposes the canonical prompt and answer before counting. Exact tags are documented in the UI contract and supplied by the UI worker. `connection_state` must expose `stateDescription = ConnectionState.name`. Screenshots are only captured with empty onboarding or after pairing UI disappears. Only synthetic chats are allowed in this fixture run.
 
@@ -116,4 +116,4 @@ Visible uniqueness is not proof of exactly-once upstream execution or the entire
 
 Offline stale-history behavior requires care: an in-process network loss can retain a snapshot, but a cold offline process is not required to persist transcripts. The test must not fabricate cached history expectations where the repository contract persists only selected-session/draft/pending. If implementation cannot expose the expected offline state or draft in the cold stage, report it and coordinate the narrow correct lifecycle stage rather than inserting a mock repository.
 
-English/Russian resource completeness and visual review are separate checks. The script requires both native locale captures and saves/restores original app locales in `finally`; instrumentation asserts the actual Activity locale. Use supported `get-app-locales`/`set-app-locales` on a disposable API 36 emulator, not global language changes or guessed broadcasts. Keep run-specific receipts private; these instructions do not claim a performed acceptance run.
+English/Spanish resource completeness and visual review are separate checks. The script requires both native locale captures and saves/restores original app locales in `finally`; instrumentation asserts the actual Activity locale. Use supported `get-app-locales`/`set-app-locales` on a disposable API 36 emulator, not global language changes or guessed broadcasts. Keep run-specific receipts private; these instructions do not claim a performed acceptance run.

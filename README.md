@@ -1,6 +1,8 @@
 <picture><source media="(max-width: 767px)" srcset="docs/assets/dsh-mobile-banner-mobile.png"><img src="docs/assets/dsh-mobile-banner.png" alt="DSH Mobile screens for Android. Chats and notifications are on the phone; the agent works on the computer."></picture>
 
-# DSH Mobile
+# DSeek
+
+The Android display name is **DSeek**. Technical package, host tooling and artifact names remain unchanged. Older screenshots and releases retain the original DSH Mobile branding.
 
 Case study on the website: <https://logachev.net/#case-dsh-mobile> · [Technical write-up (in Russian) on Habr](https://habr.com/ru/articles/1099110/)
 
@@ -43,7 +45,7 @@ Current source candidate: **app 0.9.0 / versionCode 17 and host 0.9.0**, with ad
 
 Features are available only when the host reports their capability. Use the 0.9.0/0.9.0 pair for the new notifications; the old notification feed is not a fallback. Attachments, queue/steer, question answers, rename, model choice and file downloads remain available.
 
-The theme follows the system one; you can also choose light or dark manually. The interface is in Russian and English: the language follows the system or is chosen in the app settings. Large font sizes are supported.
+The theme follows the system one; you can also choose light or dark manually. The interface supports English and Spanish: follow the system or choose English / Español in app settings, with English as the fallback. Large font sizes are supported. User and agent content is not translated. See [interface languages and display name](docs/I18N.md) for scope and verification limits.
 
 <picture><source media="(max-width: 767px)" srcset="docs/assets/dsh-mobile-screens-mobile.png"><img src="docs/assets/dsh-mobile-screens.png" alt="Three screens: chats from different projects, a Markdown reply while the agent is working, and choosing a project before a new chat."></picture>
 

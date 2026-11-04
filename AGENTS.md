@@ -1,4 +1,4 @@
-# DSH Mobile
+# DSeek (DSH Mobile)
 
 Native Android companion for a local DeepSeek Harness installation. This project is independent of other repositories and the installed runtime.
 
@@ -18,7 +18,7 @@ Native Android companion for a local DeepSeek Harness installation. This project
 - No insecure release defaults or TLS verification bypasses. Scope development transport exceptions to debug and local test targets.
 - Android background notifications must be an explicit supported capability, not a permanent socket promise.
 - Preserve existing work; read before editing. Record commands and actual results in the acceptance report. Clearly separate tests, emulator checks, physical-device checks and production readiness.
-- Product copy is Russian-first with English resources. Accessibility, loading/error/offline states, IME insets and font scaling are part of implementation.
+- Product copy supports English and Spanish, with complete English default resources. DSeek is the display name only: preserve technical package, runtime and tooling names. Accessibility, loading/error/offline states, IME insets and font scaling are part of implementation.
 
 ## Collaboration
 

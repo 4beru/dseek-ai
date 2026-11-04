@@ -1,8 +1,8 @@
-# DSH Mobile
+# DSeek
 
 ## Product
 
-An independent native Android companion for a user's existing DeepSeek Harness host. It is not an official DeepSeek product and does not bundle a new model service. Agent execution, provider subscriptions, desktop tools and canonical conversation history remain on the host computer.
+An independent native Android companion for a user's existing DeepSeek Harness host. DSeek is its display name only, with the existing package and host tooling unchanged. It is not an official DeepSeek product and does not bundle a new model service. Agent execution, provider subscriptions, desktop tools and canonical conversation history remain on the host computer.
 
 ## Audience and scene
 
@@ -10,7 +10,7 @@ A trusted DSH user accesses desktop tasks from a phone, often away from the desk
 
 ## Approved direction
 
-Use a familiar, chat-first native interface comparable in usability to common chat clients. Projects, task activity and technical details should be reachable without crowding the conversation. This is an Operate surface, not a decorative dashboard. Use the approved monochrome direction D (see docs/DESIGN.md): ink on a white or near-black ground, one inverse primary action, colour only for status, Geist type, the phone's system theme by default with explicit light and dark options, accessible native controls and Russian-first copy with English fallback.
+Use a familiar, chat-first native interface comparable in usability to common chat clients. Projects, task activity and technical details should be reachable without crowding the conversation. This is an Operate surface, not a decorative dashboard. Use the approved monochrome direction D (see docs/DESIGN.md): ink on a white or near-black ground, one inverse primary action, colour only for status, Geist type, the phone's system theme by default with explicit light and dark options, accessible native controls and complete English/Spanish copy with English fallback.
 
 ## First acceptance slice
 

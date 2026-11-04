@@ -96,7 +96,8 @@ One service-owned coordinator serializes **all** poll calls and outbox delivery:
    All phases for a chat use one
    stable device/chat notification tag, so final completion/failure **replaces**
    that chat's waiting item and may alert once in its own right. Tap opens the chat;
-   lock-screen content is private, with RU-first titles and English resources.
+   lock-screen content is private, with English and Spanish resources and the
+   DSeek display name. Channel IDs, privacy and delivery policy are unchanged.
    The endpoint has no chat title: these alerts use the localized unnamed-chat
    fallback rather than fetching a transcript just for its title. New alerts keep
    raw title/summary metadata, not a localized body: language refresh rebuilds

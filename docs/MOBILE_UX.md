@@ -29,7 +29,7 @@ Connecting, synchronizing, online, offline with stale state, revoked, incompatib
 
 ## Accessibility and behavior
 
-Material native Back; edge-to-edge plus system/cutout/IME insets; 48dp targets; system text scale; light and dark contrast; meaningful icon labels; no per-token TalkBack announcements. Auto-scroll only near the conversation end; otherwise offer new-messages action. Disable unsupported or unauthorized mutations for real, not only visually. Russian resources and complete English fallback; never translate user content or source paths.
+Material native Back; edge-to-edge plus system/cutout/IME insets; 48dp targets; system text scale; light and dark contrast; meaningful icon labels; no per-token TalkBack announcements. Auto-scroll only near the conversation end; otherwise offer new-messages action. Disable unsupported or unauthorized mutations for real, not only visually. Complete English default and Spanish resources; never translate user content or source paths. DSeek is the visible app name only. See [I18N.md](I18N.md) for localization scope and verification limits.
 
 ## Review matrix
 

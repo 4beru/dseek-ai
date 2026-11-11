@@ -45,3 +45,10 @@ Thumbs.db
 
 # Immutable versioned host builds mounted by the live DSH profile
 host/releases/
+
+# Local Devenv/Nix and optional direnv state
+.devenv/
+.devenv.flake.nix
+.direnv/
+devenv.local.nix
+devenv.local.yaml

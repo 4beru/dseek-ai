@@ -130,7 +130,6 @@ internal fun ChatListScreen(state: MobileState, query: String, onQuery: (String)
                                 }
                             }
                             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                            if (state.demo) DemoBadge(Modifier.padding(start = Spacing.Gutter, end = Spacing.Gutter, top = Spacing.L))
                         }
                     }
                     if (visible.isEmpty()) item(key = LazyItemKeys.EMPTY_CHATS) {

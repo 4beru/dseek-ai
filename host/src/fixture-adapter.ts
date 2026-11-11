@@ -3,36 +3,36 @@ import type { HostAdapter, HostSession, HostSnapshot, Preset } from './types.ts'
 
 /** All content is synthetic. This adapter has no DSH, model or network dependency. */
 export const FIXTURE = Object.freeze({
-  hostName: 'DSH Mobile demo — not connected to DSH', workspaceId: 'demo', workspaceName: 'Demo workspace',
-  existingSessionId: 'demo-session', existingSessionTitle: 'Synthetic example',
-  existingMessage: 'This is a synthetic conversation. No model or DSH runtime is connected.',
-  createdSessionTitle: 'Demo conversation', expectedAssistantText: 'Synthetic demo answer. No model was called.',
+  hostName: 'Development workstation', workspaceId: 'demo', workspaceName: 'Workspace',
+  existingSessionId: 'demo-session', existingSessionTitle: 'Project planning',
+  existingMessage: 'Help me organize the next steps for this project.',
+  createdSessionTitle: 'New conversation', expectedAssistantText: 'Start by outlining the goal, listing the next steps, and noting any open decisions. Keep each step small enough to review independently.',
 });
 export const MULTI_PROJECT_FIXTURE = Object.freeze({
-  markdownSessionId: 'demo-fund-plan', markdownAnchor: 'План портала фонда', filterWorkspaceId: 'demo-fund',
+  markdownSessionId: 'demo-fund-plan', markdownAnchor: 'Foundation portal plan', filterWorkspaceId: 'demo-fund',
   workspaces: Object.freeze([
-    { id: 'demo-fund', name: 'Портал фонда (демо)' },
-    { id: 'demo-tenders', name: 'Тендерный радар (демо)' },
-    { id: 'demo-site', name: 'Сайт (демо)' },
-    { id: 'demo-mobile', name: 'Мобильное приложение (демо)' },
-    { id: 'demo-pc', name: 'Администрирование ПК (демо)' },
+    { id: 'demo-fund', name: 'Foundation portal' },
+    { id: 'demo-tenders', name: 'Tender radar' },
+    { id: 'demo-site', name: 'Website' },
+    { id: 'demo-mobile', name: 'Mobile app' },
+    { id: 'demo-pc', name: 'PC administration' },
   ]),
 });
-const FUND_MARKDOWN = '# План портала фонда\n\nЭто **синтетический пример** для проверки интерфейса. Здесь нет данных настоящего фонда, подключённой модели или выполненных действий.\n\n## Что подготовлено\n\n- Главная страница с понятным описанием программ.\n- Каталог инициатив и карточка отдельного проекта.\n- Черновик формы обратной связи с полем `email`.\n\nСледующий шаг — проверить навигацию на небольшом экране. Важные действия должны быть доступны без горизонтальной прокрутки.\n\n## Порядок проверки\n\n1. Открыть главную страницу.\n2. Выбрать демо-проект в каталоге.\n3. Проверить подписи и состояние загрузки.\n\nПример модели состояния для Android:\n\n```kotlin\ndata class DemoProject(\n    val title: String,\n    val isLoading: Boolean = false,\n)\n\nval project = DemoProject("Портал фонда (демо)")\n```\n\n**Важно:** этот код — иллюстрация, а не результат работы на компьютере.';
-const TENDER_MARKDOWN = '## Обзор демонстрационного радара\n\nПодготовлен **учебный** список закупок. Все названия и значения вымышлены; реальные площадки не запрашивались.\n\n- Новые записи выделены отдельным блоком.\n- Для каждого результата показаны срок и краткое описание.\n- Фильтр `region` можно сбросить одним действием.\n\n### Что проверить дальше\n\n1. Сравнить пустое состояние и список результатов.\n2. Увеличить размер системного шрифта.\n3. Убедиться, что длинные заголовки переносятся.\n\nОтчёт остаётся черновиком. Отправка уведомлений и поиск на внешних площадках в этом демо **не выполняются**.';
+const FUND_MARKDOWN = '# Foundation portal plan\n\nThe portal should make it easy to **explore programs**, understand each initiative and get in touch with the team.\n\n## Page structure\n\n- A home page with clear program descriptions.\n- An initiative catalog and an individual project card.\n- A contact form with an `email` field.\n\nKeep navigation straightforward on a small screen. Important actions should be accessible without horizontal scrolling.\n\n## Review steps\n\n1. Open the home page.\n2. Select a project from the catalog.\n3. Check labels and the loading state.\n\nAndroid state model:\n\n```kotlin\ndata class Project(\n    val title: String,\n    val isLoading: Boolean = false,\n)\n\nval project = Project("Foundation portal")\n```\n\n**Next decision:** agree on the navigation labels before refining the page layouts.';
+const TENDER_MARKDOWN = '## Tender radar overview\n\nOrganize procurement opportunities by **deadline and relevance** so the team can review the most useful results first.\n\n- Show new entries in a separate section.\n- Include a deadline and a short description for each result.\n- Let users reset the `region` filter in one action.\n\n### Review checklist\n\n1. Compare the empty state with the results list.\n2. Increase the system font size.\n3. Make sure long headings wrap correctly.\n\n**Next step:** agree on the digest layout and notification preferences before connecting external sources.';
 const MULTI_SESSIONS = [
-  ['demo-fund-plan', 'demo-fund', 'План портала и структура разделов', true, FUND_MARKDOWN],
-  ['demo-tenders-review', 'demo-tenders', 'Проверка фильтров тендерного радара', true, TENDER_MARKDOWN],
-  ['demo-mobile-chat', 'demo-mobile', 'Чат: отступы и длинные ответы', false, 'Синтетический итог: проверены переносы текста и состояния кнопок. Модель не вызывалась.'],
-  ['demo-site-navigation', 'demo-site', 'Навигация и мобильное меню', false, 'Демонстрационный черновик меню подготовлен. Настоящий сайт не изменялся.'],
-  ['demo-fund-form', 'demo-fund', 'Форма заявки: валидация полей', false, 'Это учебная проверка полей формы. Никакие заявки не отправлены.'],
-  ['demo-pc-backup', 'demo-pc', 'План резервного копирования', false, 'Синтетический план: выбрать папки, проверить свободное место, согласовать расписание. Команды не запускались.'],
-  ['demo-tenders-digest', 'demo-tenders', 'Еженедельная сводка: макет', false, TENDER_MARKDOWN],
-  ['demo-mobile-offline', 'demo-mobile', 'Состояния без сети и повторное подключение', false, 'Учебный сценарий: показать статус соединения и сохранить черновик. Сервер DSH не подключён.'],
-  ['demo-site-a11y', 'demo-site', 'Доступность карточек и контраст', false, 'Демо-заметка: проверить подписи и клавиатурный фокус. Аудит реального продукта не выполнялся.'],
-  ['demo-pc-storage', 'demo-pc', 'Свободное место и очистка: черновик', false, 'Синтетический список шагов. Файлы не удалялись и настройки ПК не менялись.'],
-  ['demo-fund-content', 'demo-fund', 'Тексты главной страницы', false, FUND_MARKDOWN],
-  ['demo-mobile-settings', 'demo-mobile', 'Экран настроек соединения', false, 'Учебный текст для экрана настроек. Ключи и адреса настоящего сервера отсутствуют.'],
+  ['demo-fund-plan', 'demo-fund', 'Portal plan and section structure', true, FUND_MARKDOWN],
+  ['demo-tenders-review', 'demo-tenders', 'Checking tender radar filters', true, TENDER_MARKDOWN],
+  ['demo-mobile-chat', 'demo-mobile', 'Chat: spacing and long replies', false, 'Use consistent spacing between messages, let long replies wrap naturally, and keep the send button visible above the keyboard.'],
+  ['demo-site-navigation', 'demo-site', 'Navigation and mobile menu', false, 'Keep the main navigation concise: Home, Programs, About and Contact. On smaller screens, group these links in a menu with a clear close action.'],
+  ['demo-fund-form', 'demo-fund', 'Application form: field validation', false, 'Validate required fields when the user leaves them, show errors beside each field, and preserve the entered values when returning to the form.'],
+  ['demo-pc-backup', 'demo-pc', 'Backup plan', false, 'Choose the folders to include, check available storage, and agree on a backup schedule. Confirm the destination before running any commands.'],
+  ['demo-tenders-digest', 'demo-tenders', 'Weekly digest: layout', false, TENDER_MARKDOWN],
+  ['demo-mobile-offline', 'demo-mobile', 'Offline states and reconnection', false, 'Show the connection status, preserve the current draft, and provide a reconnect action. Keep cached messages available while the connection recovers.'],
+  ['demo-site-a11y', 'demo-site', 'Card accessibility and contrast', false, 'Give each card a descriptive heading and a clear focus indicator. Check contrast in both themes and keep touch targets comfortable at larger font sizes.'],
+  ['demo-pc-storage', 'demo-pc', 'Free space and cleanup: draft', false, 'Review storage usage by category, identify large files, and confirm what can be archived. Ask for confirmation before deleting anything.'],
+  ['demo-fund-content', 'demo-fund', 'Home page copy', false, FUND_MARKDOWN],
+  ['demo-mobile-settings', 'demo-mobile', 'Connection settings screen', false, 'Keep the computer identity and connection status together. Place reconnect, appearance and language controls in clearly separated sections.'],
 ] as const;
 const EPOCH = 1700000000000;
 const MULTI_DAYS_AGO = [0, 0, 0, 0, 1, 1, 2, 3, 5, 8, 12, 20] as const;
@@ -71,7 +71,7 @@ export class FixtureAdapter implements HostAdapter {
         const updatedAt = multiProjectDate(this.epoch, index);
         const userAt = running ? this.epoch - (index === 0 ? 3 : 5) * 60_000 : updatedAt - 1000;
         this.sessions.set(id, { session: { id, workspaceId, title, running, updatedAt }, cursor: 1, hasMore: false, activity: running ? 'running' : 'idle', messages: [
-          { id: `${id}-user`, role: 'user', text: `Демо-задача: ${title.toLowerCase()}. Используй только вымышленные примеры.`, createdAt: userAt },
+          { id: `${id}-user`, role: 'user', text: `Help me work through ${title.toLowerCase()}. Suggest a clear plan and highlight any open decisions.`, createdAt: userAt },
           { id: `${id}-assistant`, role: 'assistant', text: answer, createdAt: updatedAt },
         ] });
       }
@@ -96,7 +96,7 @@ export class FixtureAdapter implements HostAdapter {
   private check(signal: AbortSignal): void { signal.throwIfAborted(); if (this.disposed) throw new HostError('unavailable'); }
   private current(id: string): HostSnapshot { const value = this.sessions.get(id); if (!value) throw new HostError('not_found'); return value; }
   private publish(id: string): void { for (const wake of this.listeners.get(id) ?? []) wake(); }
-  async listPresets(signal: AbortSignal): Promise<Preset[]> { this.check(signal); return [{ id: 'fixture', name: 'Synthetic demo (no model)' }]; }
+  async listPresets(signal: AbortSignal): Promise<Preset[]> { this.check(signal); return [{ id: 'fixture', name: 'General assistant' }]; }
   async listSessions(signal: AbortSignal): Promise<HostSession[]> {
     this.check(signal);
     return [...this.sessions.values()].map((item) => ({ ...item.session })).sort((a, b) => b.updatedAt - a.updatedAt);

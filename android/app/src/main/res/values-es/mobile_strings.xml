@@ -53,7 +53,6 @@
     <string name="mobile_refresh_connection">Actualizar conexión</string>
     <string name="mobile_revoked_help">Elimina esta conexión en los ajustes y crea una nueva invitación en tu computadora.</string>
     <string name="mobile_incompatible_help">Actualiza la app del teléfono o el complemento del host a versiones compatibles. Las tareas permanecen en tu computadora.</string>
-    <string name="mobile_demo_notice">Host de demostración: contenido simulado, sin conexión a DSH.</string>
     <string name="mobile_desktop_notice">Esta tarea requiere tu decisión en la computadora. Las acciones del agente no se pueden aprobar desde el teléfono. Con un complemento del host antiguo, tampoco se pueden responder preguntas aquí.</string>
     <string name="mobile_unknown_activity">No se pudo confirmar el estado de la tarea. Revísalo en tu computadora. El envío está desactivado.</string>
     <string name="mobile_message">Envía un mensaje a tu computadora</string>
@@ -154,7 +153,6 @@
     <string name="mobile_subagents_working">subagentes trabajando · %1$d</string>
     <string name="mobile_subagents_count">subagentes: %1$d</string>
     <string name="mobile_subagents_activity">Subagentes trabajando · %1$d</string>
-    <string name="mobile_demo_tag">Demostración simulada · sin DSH</string>
     <string name="mobile_connection_details">Conexión</string>
     <string name="mobile_online_help">Se cargó el estado más reciente desde tu computadora. Las tareas siguen ejecutándose cuando sales de la app.</string>
     <string name="mobile_no_search_title">No hay chats coincidentes</string>

@@ -28,8 +28,8 @@ import androidx.compose.foundation.border
 import androidx.compose.ui.draw.clip
 
 /**
- * "Recommended" as a small framed tag under the option label (the same quiet frame as the demo
- * marker), with a check glyph so it reads as a property of the option and not as more label text.
+ * "Recommended" as a small framed tag under the option label, with a check glyph so it reads
+ * as a property of the option and not as more label text.
  */
 @Composable
 private fun RecommendedMark() {

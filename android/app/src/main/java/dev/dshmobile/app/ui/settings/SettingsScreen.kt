@@ -60,7 +60,6 @@ internal fun SettingsScreen(state: MobileState, model: MobileViewModel, onBack: 
                     }
                 }
             }
-            if (state.demo) Text(stringResource(R.string.mobile_demo_notice), Modifier.padding(horizontal = Spacing.Gutter), style = MaterialTheme.typography.bodySmall, color = muted)
 
             Section(stringResource(R.string.mobile_connection_section)) {
                 Text(state.lastSyncedAt?.let { stringResource(R.string.mobile_last_sync, formattedTime(it)) } ?: stringResource(R.string.mobile_never_synced),

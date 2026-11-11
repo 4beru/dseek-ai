@@ -132,7 +132,7 @@ class MobileAcceptanceTest {
         awaitOnline()
         await(hasTestTag("home_screen"))
         compose.onNodeWithTag("pairing_invitation").assertDoesNotExist()
-        compose.onNodeWithTag("demo_label").assertIsDisplayed()
+        compose.onNodeWithTag("demo_label").assertDoesNotExist()
     }
 
     private fun pairAndExerciseLifecycle(config: AcceptanceConfig) {
@@ -229,7 +229,7 @@ class MobileAcceptanceTest {
             awaitOnline()
             checkpoint = "redesign-home"
             await(hasTestTag("home_screen"))
-            compose.onNodeWithTag("demo_label").assertIsDisplayed() // Actual host also confirms synthetic provenance.
+            compose.onNodeWithTag("demo_label").assertDoesNotExist() // Capture presentation omits the fixture badge; the host remains synthetic.
             // Index 0 is All: reaching index 2 proves at least two real project chips,
             // without assuming LazyRow has materialized both in the initial viewport.
             compose.onNodeWithTag("project_filters").performScrollToIndex(2).performScrollToIndex(0)

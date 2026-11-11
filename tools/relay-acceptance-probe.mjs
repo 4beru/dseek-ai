@@ -9,6 +9,7 @@ import { innerRequest } from './relay-acceptance-client.mjs';
 import { RELAY_PROMPT, LOST_RESPONSE_PROMPT } from './relay-acceptance-adapter.mjs';
 import { migrationEvidence } from './relay-acceptance-evidence.mjs';
 import { readInnerSnapshots } from './relay-acceptance-sse.mjs';
+import { FIXTURE } from '../host/dist/fixture-adapter.js';
 
 // Never print invitation/response auth fields or HTTP errors. Fixture-owned ready path is nonsecret.
 let checkpoint = 'config';
@@ -44,7 +45,7 @@ try {
       checkpoint = 'live-sse-changed';
     },
     complete: (event, first) => event.cursor > first.cursor && event.activity === 'idle' &&
-      event.messages.some(message => message.role === 'assistant' && message.text === 'Synthetic demo answer. No model was called.'),
+      event.messages.some(message => message.role === 'assistant' && message.text === FIXTURE.expectedAssistantText),
   });
   diagnostic = { sseSnapshots: events.length }; assert.ok(events.length >= 2); assert.ok(events.every(event => event.session.id === id));
   const control = action => fixtureControl(run, action);

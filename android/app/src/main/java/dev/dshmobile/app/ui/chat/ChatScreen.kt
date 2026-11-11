@@ -154,12 +154,6 @@ internal fun ChatScreen(state: MobileState, model: MobileViewModel, requestedSes
             // The queue receipt card already explains unknown delivery; it is not a failure.
             val queueDeliveryUncertain = state.pending?.kind == "queue" && state.pending.status == "uncertain" && state.error == "command_uncertain"
             if (state.connection == ConnectionState.ONLINE && !queueDeliveryUncertain) state.error?.let { ErrorText(it, Modifier.padding(horizontal = Spacing.Gutter, vertical = Spacing.S)) }
-            if (state.demo) {
-                // Opaque band with a hairline: the timeline scrolls under an edge, not under floating text.
-                // The band grows with the badge (it wraps at large font scales) and keeps the 8dp rhythm under the top bar.
-                Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background).padding(horizontal = Spacing.Gutter, vertical = Spacing.S)) { DemoBadge() }
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            }
             if (staleText != null && state.connection == ConnectionState.ONLINE) Text(staleText,
                 Modifier.padding(horizontal = Spacing.Gutter, vertical = Spacing.XS).semantics { liveRegion = LiveRegionMode.Polite },
                 style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)

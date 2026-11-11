@@ -884,13 +884,13 @@ test('multi-project timestamps are relative to one demo start and keep default f
   assert.equal((await plain.snapshot(defaultCreated.sessionId, signal)).session.updatedAt, 1700000000001);
 });
 
-test('multi-project demo is opt-in, provides twelve varied Russian sessions and stable running Markdown screenshot anchors', async t => {
+test('multi-project demo is opt-in, provides twelve varied English sessions and stable running Markdown screenshot anchors', async t => {
   const h = await harness(t);
   const plain = new FixtureAdapter();
   assert.deepEqual((await plain.listSessions(new AbortController().signal)).map(item => item.id), ['demo-session']); plain.dispose();
   const demo = await runDemo({ stateDirectory: join(h.dir, 'multi-demo'), multiProject: true });
   h.closeBeforeCleanup(() => demo.close());
-  assert.deepEqual(demo.invitation.demoFixture, { markdownSessionId: 'demo-fund-plan', markdownAnchor: 'План портала фонда', filterWorkspaceId: 'demo-fund' });
+  assert.deepEqual(demo.invitation.demoFixture, { markdownSessionId: 'demo-fund-plan', markdownAnchor: 'Foundation portal plan', filterWorkspaceId: 'demo-fund' });
   assert.equal(MULTI_PROJECT_FIXTURE.markdownSessionId, 'demo-fund-plan');
   const signal = new AbortController().signal;
   const sessions = await demo.adapter.listSessions(signal);
@@ -901,10 +901,10 @@ test('multi-project demo is opt-in, provides twelve varied Russian sessions and 
   const current = await demo.adapter.snapshot('demo-fund-plan', signal);
   assert.equal(current.activity, 'running');
   const markdown = current.messages.filter(item => item.role === 'assistant').map(item => item.text).join('\n');
-  for (const literal of ['# План портала фонда', '\n- ', '**', '`', '```kotlin', '\n1. ', '\n\n']) assert.ok(markdown.includes(literal), literal);
+  for (const literal of ['# Foundation portal plan', '\n- ', '**', '`', '```kotlin', '\n1. ', '\n\n']) assert.ok(markdown.includes(literal), literal);
   const paired = await (await fetch(`${demo.invitation.baseUrl}/v1/pairings`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ pairingToken: demo.invitation.pairingToken, deviceName: 'Synthetic screenshot phone' }) })).json();
   const response = await fetch(`${demo.invitation.baseUrl}/v1/workspaces`, { headers: { authorization: `Bearer ${paired.deviceToken}` } });
-  assert.deepEqual((await response.json()).items.map((item: { name: string }) => item.name), ['Портал фонда (демо)', 'Тендерный радар (демо)', 'Сайт (демо)', 'Мобильное приложение (демо)', 'Администрирование ПК (демо)']);
+  assert.deepEqual((await response.json()).items.map((item: { name: string }) => item.name), ['Foundation portal', 'Tender radar', 'Website', 'Mobile app', 'PC administration']);
 });
 
 test('demo composition intentionally issues only a local fixture invitation and closes completely', async (t) => {

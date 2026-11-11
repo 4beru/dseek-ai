@@ -53,7 +53,6 @@
     <string name="mobile_refresh_connection">Refresh connection</string>
     <string name="mobile_revoked_help">Remove this connection in settings, then create a new invitation on your computer.</string>
     <string name="mobile_incompatible_help">Update the phone app or host plugin to compatible versions. Tasks remain on your computer.</string>
-    <string name="mobile_demo_notice">Demo host — synthetic content, not connected to DSH.</string>
     <string name="mobile_desktop_notice">This task needs your decision on the computer. Agent actions can’t be approved from the phone, and with an older host plugin questions can’t be answered here either.</string>
     <string name="mobile_unknown_activity">Task status could not be confirmed. Check it on your computer; sending is disabled.</string>
     <string name="mobile_message">Message your computer</string>
@@ -154,7 +153,6 @@
     <string name="mobile_subagents_working">subagents working · %1$d</string>
     <string name="mobile_subagents_count">subagents: %1$d</string>
     <string name="mobile_subagents_activity">Subagents working · %1$d</string>
-    <string name="mobile_demo_tag">Synthetic demo · no DSH</string>
     <string name="mobile_connection_details">Connection</string>
     <string name="mobile_online_help">The latest state is loaded from your computer. Tasks keep running when you leave the app.</string>
     <string name="mobile_no_search_title">No matching chats</string>

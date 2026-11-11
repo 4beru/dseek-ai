@@ -1,12 +1,10 @@
 package dev.dshmobile.app.ui.components
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -22,7 +20,6 @@ import dev.dshmobile.app.model.*
 import dev.dshmobile.app.ui.MobileIcons
 import dev.dshmobile.app.ui.safeErrorResource
 import dev.dshmobile.app.ui.theme.IconSize
-import dev.dshmobile.app.ui.theme.Spacing
 import java.text.DateFormat
 import java.util.Date
 
@@ -69,16 +66,4 @@ internal fun EmptyState(title: String, body: String, modifier: Modifier = Modifi
         Text(body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
         action?.invoke()
     }
-}
-
-/**
- * Synthetic-data marker: a small framed label, so it never reads as a section heading or as content.
- * It is a provenance disclosure, so it wraps at large font scales instead of cutting "no DSH" off.
- */
-@Composable
-internal fun DemoBadge(modifier: Modifier = Modifier) {
-    Text(stringResource(R.string.mobile_demo_tag), modifier
-        .border(1.dp, MaterialTheme.colorScheme.outlineVariant, MaterialTheme.shapes.extraSmall)
-        .padding(horizontal = Spacing.S, vertical = Spacing.XXS).testTag("demo_label"),
-        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }

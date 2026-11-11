@@ -202,6 +202,8 @@ Do not expose the DSH web port to the outside and do not disable TLS verificatio
 
 ## Building from source
 
+For a local Linux/Nix demo and screenshots on your own USB-connected Android phone, see the [Devenv demo guide (Spanish)](docs/DEMO.md). This path needs no model API key or production DSH installation. It uses the existing synthetic demo, not a standalone on-phone simulator.
+
 From the repository root, in PowerShell:
 
 ```powershell

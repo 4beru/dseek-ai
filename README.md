@@ -77,26 +77,55 @@ Some actions depend on capabilities exposed by the paired host. Notifications ar
 
 ## How it works
 
-~~~text
-                      Your Android phone
-                       DSeek (Kotlin)
-                              |
-                    HTTPS + device pairing
-                    Wi-Fi / Tailscale / relay
-                              |
-                              v
-                DSH companion plugin (Node.js)
-                              |
-                              v
-                  DeepSeek Harness on your PC
-                   Projects · Agents · Tools
-~~~
+DSeek is a **native Android client**, not an AI runtime. It connects securely to the companion plugin on your computer, where DeepSeek Harness manages the agents, models, and conversation history.
 
-**The computer does the work.** DSeek does not require a separate hosted AI backend: models, provider credentials, subscriptions, and the canonical conversation history remain on the host. For remote access, use Tailscale or an optional **self-hosted** encrypted relay; the repository does not provide a shared public relay.
+```mermaid
+flowchart LR
+    subgraph PHONE["ANDROID DEVICE"]
+        direction TB
+        APP["DSeek App<br/>Chats · Tasks · Attachments"]
+        KEYS["Android Keystore<br/>Paired-device credentials"]
+        ALERTS["Android notifications<br/>Supported task outcomes"]
+        KEYS -.-> APP
+        APP -.-> ALERTS
+    end
 
-Pairing uses short-lived invitations and checks the host certificate. Android stores its device credentials using Keystore-backed protection. Read and execute permissions can be granted separately, and lost devices should be revoked at the host.
+    subgraph NETWORK["SECURE CONNECTIVITY"]
+        direction TB
+        DIRECT["Direct HTTPS<br/>Local Wi-Fi / Tailscale"]
+        RELAY["Optional self-hosted relay<br/>Opaque WSS tunnel + inner TLS"]
+    end
 
-Read the [architecture](docs/ARCHITECTURE.md), [security model](docs/SECURITY.md), and [relay overview](docs/RELAY_OVERVIEW.md) for the design and its limits.
+    subgraph COMPUTER["YOUR COMPUTER"]
+        direction TB
+        PLUGIN["Companion plugin · Node.js<br/>Pairing · Access control · Streaming"]
+        DSH["DeepSeek Harness<br/>Projects · Sessions · Agents"]
+        EXEC["Models & tools<br/>Agent execution"]
+        HISTORY[("Conversation history<br/>Host-side storage")]
+
+        PLUGIN <--> DSH
+        DSH --> EXEC
+        DSH <--> HISTORY
+    end
+
+    APP <-->|"Tasks · Streaming · Replies"| DIRECT
+    APP <-->|"Encrypted traffic"| RELAY
+    DIRECT <--> PLUGIN
+    RELAY <--> PLUGIN
+
+    classDef primary fill:#0B0B0C,color:#F2F2F3,stroke:#00E676,stroke-width:2px;
+    classDef runtime fill:#18252C,color:#F2F2F3,stroke:#7DA7B4,stroke-width:1.5px;
+    class APP primary;
+    class PLUGIN,DSH runtime;
+```
+
+**The computer does the work.** Your agent keeps running even when DSeek is closed. Models, provider credentials, subscriptions, and canonical conversations remain on the computer; the phone sends tasks and displays updates.
+
+**Two connection options.** Connect directly over your local network or Tailscale, or use an optional **self-hosted relay** that forwards encrypted traffic without terminating the inner TLS session. This project does not provide a public relay service.
+
+**Designed around explicit trust.** Short-lived pairing invitations authenticate a device against the host certificate. Android protects the device credentials with Keystore-backed storage. Read and execute rights can be granted separately; revoke a lost device from the host. Notifications depend on supported host capabilities and Android delivery conditions.
+
+See [architecture](docs/ARCHITECTURE.md), [security model](docs/SECURITY.md), and [relay overview](docs/RELAY_OVERVIEW.md) for the implementation details and limitations.
 
 ## Getting started
 

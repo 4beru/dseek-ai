@@ -199,9 +199,3 @@ The Android source currently identifies itself as **0.9.2** (`versionCode 19`), 
 [UI languages](docs/I18N.md) ·
 [Relay deployment](docs/RELAY_DEPLOYMENT.md) ·
 [Contributing](CONTRIBUTING.md)
-
-## Attribution & license
-
-DSeek is an **independent, unofficial** Android companion for DeepSeek Harness, not a product or service endorsed by DeepSeek. This repository is based on the MIT-licensed DSH Mobile project by **Pavel Logachev**; the original copyright notice remains in [LICENSE](LICENSE). Modifications in this fork are maintained in [4beru/dseek-ai](https://github.com/4beru/dseek-ai).
-
-MIT License © 2026 Pavel Logachev, with subsequent contributions under the repository's license.

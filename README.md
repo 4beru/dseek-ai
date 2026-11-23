@@ -1,265 +1,178 @@
-<picture><source media="(max-width: 767px)" srcset="docs/assets/dsh-mobile-banner-mobile.png"><img src="docs/assets/dsh-mobile-banner.png" alt="DSH Mobile screens for Android. Chats and notifications are on the phone; the agent works on the computer."></picture>
+<!-- DSeek / Android companion for DeepSeek Harness -->
 
-# DSeek
+<div align="center">
+  <img src="./logo.svg" alt="DSeek app logo" width="104" height="104" />
 
-The Android display name is **DSeek**. Technical package, host tooling and artifact names remain unchanged. Older screenshots and releases retain the original DSH Mobile branding.
+  <h1>DSeek</h1>
 
-Case study on the website: <https://logachev.net/#case-dsh-mobile> · [Technical write-up (in Russian) on Habr](https://habr.com/ru/articles/1099110/)
+  <p><strong>Your AI agent keeps working. You stay connected.</strong></p>
 
-[![Latest release](https://img.shields.io/github/v/release/pavel-logachev/dsh-mobile?style=flat-square&labelColor=0b0f14&label=release&color=c3f451)](https://github.com/pavel-logachev/dsh-mobile/releases/latest) [![CI checks](https://img.shields.io/github/actions/workflow/status/pavel-logachev/dsh-mobile/ci.yml?branch=main&style=flat-square&labelColor=0b0f14&label=CI)](https://github.com/pavel-logachev/dsh-mobile/actions/workflows/ci.yml) [![License](https://img.shields.io/github/license/pavel-logachev/dsh-mobile?style=flat-square&labelColor=0b0f14&label=license&color=7f99ad)](<LICENSE>)
+  <p>
+    A native Android companion for <a href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness</a>.
+    Start tasks, follow progress, share context, and continue conversations with
+    the agents running on your own computer — wherever you are.
+  </p>
 
-English | [Русский](README.ru.md)
+  <p>
+    <a href="#experience">Experience</a> &nbsp;·&nbsp;
+    <a href="#features">Features</a> &nbsp;·&nbsp;
+    <a href="#how-it-works">How it works</a> &nbsp;·&nbsp;
+    <a href="#getting-started">Getting started</a>
+  </p>
 
-**Your [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) agent runs on your computer. From your Android phone you assign tasks with photos and files, read replies in real time, answer the agent's questions and get an “Answer ready” notification.**
+  <img src="./docs/images/0.8/android-head_flat.png" alt="Android logo" width="52" />
 
-[Published releases](https://github.com/pavel-logachev/dsh-mobile/releases) · [0.9.0 candidate](<docs/RELEASE_0.9.0.md>) · [Installation](#installation) · [Architecture](#how-it-works) · [Security](#security)
+  <p><sub>Android 8.0+ &nbsp;·&nbsp; Kotlin & Jetpack Compose &nbsp;·&nbsp; English / Español</sub></p>
+</div>
 
-> An unofficial project by Pavel Logachev. Developed independently of DeepSeek.
+<p align="center">
+  <img src="./docs/images/0.8/dseek-ai_eyecatch.png" alt="DSeek — Android companion for desktop AI agents" width="100%" />
+</p>
 
-Android 8.0+ · QR code pairing · Wi‑Fi or Tailscale
+## A desktop agent, without being tied to your desk
 
-Models, tools and subscriptions stay on the computer. DSH Mobile has no cloud server.
+DSeek brings the conversations and controls of your **DeepSeek Harness (DSH)** workspace to a purpose-built Android interface. Your computer handles the models, tools, and execution; your phone is a convenient place to give the agent direction and see what happens next.
 
-## What's new in 0.9.0
+Whether you are reviewing a result away from your workstation, sending a photo for context, or responding to a question mid-task, DSeek keeps the workflow within reach. **It is a companion, not a separate AI provider or an on-device model.**
 
-Current source candidate: **app 0.9.0 / versionCode 17 and host 0.9.0**, with additive API `/v1` extensions. This is not a publication announcement: final artifact and physical acceptance results belong in the [release checklist](<docs/RELEASE_0.9.0.md#verification>).
+## Experience
 
-- Notifications now follow phone-started tasks: completion, failure and needs-answer through `GET /v1/sessions/{id}/prompt-outcomes` and capability `promptOutcomes`. No permanent idle connection notification or coverage banner. The old feed is retired: older apps report notifications unavailable on the new host, so upgrade both components together.
-- Turn errors are shown in chat. Recovery hold/witness and `recovery-status`, `recovery-hold`, `recovery-release --new-epoch` support operator reconciliation, not exactly-once execution.
-- At most 32 unsettled host dispatches; overflow is refused before admission. A ten-minute post-admission deadline settles as `uncertain`, without automatic replay.
-- Network return wakes reconnect; online status follows the first authorized index page. Chat opens stream-first without an initial full GET; the first nonempty text is published immediately, with subsequent updates still throttled. Real-phone speed numbers still require measurements.
-- DSH `0.2.1-rc.5` passed the full isolated canary: **25 checks**. This is not physical-phone or external-model acceptance. [Evidence matrix](<docs/DSH_CANARY.md#compatibility-evidence>).
+<p align="center">
+  <img src="./docs/images/0.8/dseek_chat-1.jpeg" alt="DSeek conversation screen" width="30%" />
+  &nbsp;
+  <img src="./docs/images/0.8/dseek_chat-2.jpeg" alt="DSeek agent response and conversation details" width="30%" />
+  &nbsp;
+  <img src="./docs/images/0.8/dseek_new-chat.jpeg" alt="Create a new agent conversation" width="30%" />
+</p>
 
-## What you can do from your phone
+<p align="center">
+  <sub>Conversations &nbsp;·&nbsp; Agent responses &nbsp;·&nbsp; New tasks</sub>
+</p>
 
-- **Open chats from all projects.** Search chats and filter them by project. The project list follows the DSH sidebar and updates without re-pairing.
-- **Assign tasks.** Pick a project and a preset and write the task right away: the app creates a chat and sends the text once.
-- **Send photos and files.** A shot from the camera, photos through the system photo picker (Photo Picker), files through the system file picker. Uploading starts as soon as you pick them. One message can carry up to 20 attachments with a total size of up to 200 MiB, each file up to 20 MiB. The agent receives PNG, JPEG, WebP and GIF images as images; files are handed to the DSH attachment store at the moment of sending. Unsent uploads expire on the computer after 10 minutes and never reach DSH.
-- **Read the reply in real time.** Markdown, tables, code blocks with a copy button. Images from messages appear right in the conversation; tap one to open a full-screen viewer where you can zoom in, send it via Share or save it. Files from messages can be downloaded — up to 20 MiB. Service events are collapsed into an “Agent activity” line — the full text opens on tap. A long compacted chat whose older history cannot be restored within the limits opens with the latest messages and a note that the history is truncated.
-- **Add messages and steer while the agent works.** By default a message joins the DSH queue and reaches the agent on its next turn. “Steer” delivers it at the agent's next step without stopping the current turn: hold the send button or tap ↳ on a queued message. You can also remove a message from the queue.
-- **Answer the agent's questions.** Pick one or more options, write your own answer or skip the question. The option the agent recommends is marked but not preselected. Approvals of agent actions stay on the computer.
-- **Rename a chat and change its model.** Both actions are in the ⋯ menu. The new model applies from the next model request, possibly as early as the next step of the running turn; a request that is already in progress is not switched.
-- **Stop a run.** A separate Stop button asks for confirmation.
-- **Get notifications for your tasks.** One local switch enables watches for phone-started tasks when the host publishes `promptOutcomes`. Completion, failure and needs-answer alerts open the corresponding chat; a final outcome replaces its waiting alert. Android channels control sound. Desktop-started tasks are not automatically watched. [Contract and limits](<docs/NOTIFICATIONS_0.9.md>).
-- **Come back to the conversation.** Message search, a draft for each chat and copying with a long press.
+<p align="center">
+  <img src="./docs/images/0.8/dseek_chat-history.jpeg" alt="Browse conversation history and projects" width="30%" />
+  &nbsp;
+  <img src="./docs/images/0.8/dseek_settings.jpeg" alt="DSeek preferences and connection settings" width="30%" />
+  &nbsp;
+  <img src="./docs/images/0.8/dseek_login.jpeg" alt="DSeek device pairing screen" width="30%" />
+</p>
 
-Features are available only when the host reports their capability. Use the 0.9.0/0.9.0 pair for the new notifications; the old notification feed is not a fallback. Attachments, queue/steer, question answers, rename, model choice and file downloads remain available.
+<p align="center">
+  <sub>Chat history &nbsp;·&nbsp; Settings &nbsp;·&nbsp; Secure pairing</sub>
+</p>
 
-The theme follows the system one; you can also choose light or dark manually. The interface supports English and Spanish: follow the system or choose English / Español in app settings, with English as the fallback. Large font sizes are supported. User and agent content is not translated. See [interface languages and display name](docs/I18N.md) for scope and verification limits.
+<sub>These screenshots use synthetic demonstration content, not private chats or a live connected model. The image assets are kept under their existing `docs/images/0.8` path.</sub>
 
-<picture><source media="(max-width: 767px)" srcset="docs/assets/dsh-mobile-screens-mobile.png"><img src="docs/assets/dsh-mobile-screens.png" alt="Three screens: chats from different projects, a Markdown reply while the agent is working, and choosing a project before a new chat."></picture>
+## Features
 
-The screenshots were taken in the real app with synthetic demo data. They contain no real chats or connected models.
+- **Your projects, one place.** Browse existing DSH conversations, search messages, filter by project, and start a chat in the workspace you choose.
+- **Tasks from your phone.** Send a prompt, attach camera photos, images, or files, and keep the agent running on your computer even after you close the app.
+- **Progress as it happens.** Follow streamed replies, formatted Markdown, code blocks, tables, and agent activity without switching back to the desktop.
+- **Stay in control.** Queue another message, use *Steer* to guide the next agent step, answer an agent question, or request a run to stop.
+- **Thoughtful conversation tools.** Rename chats, select an available model, preserve per-chat drafts, copy responses, and view or download supported attachments.
+- **Useful notifications.** Receive Android alerts for supported phone-started tasks when a response is ready, a task fails, or the agent needs an answer.
+- **Made for Android.** A Kotlin + Jetpack Compose interface with light/dark themes, scalable text, and English/Spanish language options.
 
-## Screenshots
-
-Historical 0.8 screenshots; the notification screen does not describe the 0.9.0 design.
-
-![DSH Mobile 0.8](docs/images/0.8/hero.png)
-
-DSH Mobile 0.8: the agent works on your computer, and your chat with it is on your phone.
-
-![Chats from all projects](docs/images/0.8/chats.png)
-
-Chats from all DSH projects in one list.
-
-![A message while the agent is working](docs/images/0.8/steer.png)
-
-The agent is working and you add a message: to the queue, or “Steer” at the next step.
-
-![Attachments in a message](docs/images/0.8/attachments.png)
-
-Camera photos, gallery pictures and files — in one message to the agent.
-
-![Agent question](docs/images/0.8/question.png)
-
-An agent question: pick an option, write your own answer or skip it.
-
-![Chat menu](docs/images/0.8/menu.png)
-
-The ⋯ menu: renaming the chat and changing the model.
-
-![Image viewer](docs/images/0.8/viewer.png)
-
-An image from the chat in full screen: zoom in, share, save.
-
-![Notifications](docs/images/0.8/notifications.png)
-
-Notifications: the answer is ready, the agent has asked a question.
+Some actions depend on capabilities exposed by the paired host. Notifications are best-effort, not guaranteed background push; action approvals and full desktop administration remain on the computer.
 
 ## How it works
 
-A companion plugin is installed on the computer. It opens a narrow API to the paired phone over a secure connection but does not expose the DSH web interface to the outside.
+~~~text
+                      Your Android phone
+                       DSeek (Kotlin)
+                              |
+                    HTTPS + device pairing
+                    Wi-Fi / Tailscale / relay
+                              |
+                              v
+                DSH companion plugin (Node.js)
+                              |
+                              v
+                  DeepSeek Harness on your PC
+                   Projects · Agents · Tools
+~~~
 
-```text
-Android app
-  │ HTTPS over Wi‑Fi or Tailscale
-  │ or through your own relay
-  ▼
-Companion plugin inside DSH
-  │
-  ▼
-Your projects and agents on the computer
-```
+**The computer does the work.** DSeek does not require a separate hosted AI backend: models, provider credentials, subscriptions, and the canonical conversation history remain on the host. For remote access, use Tailscale or an optional **self-hosted** encrypted relay; the repository does not provide a shared public relay.
 
-The phone is only a client: the agent keeps working after you close the app. The main conversation history is stored in DSH on the computer.
+Pairing uses short-lived invitations and checks the host certificate. Android stores its device credentials using Keystore-backed protection. Read and execute permissions can be granted separately, and lost devices should be revoked at the host.
 
-The Android client is written in Kotlin and Jetpack Compose; the plugin runs on Node.js. Your own relay is an optional way to connect; the project does not provide a shared public relay.
+Read the [architecture](docs/ARCHITECTURE.md), [security model](docs/SECURITY.md), and [relay overview](docs/RELAY_OVERVIEW.md) for the design and its limits.
 
-## Installation
+## Getting started
 
-You can hand the detailed [setup guide](<docs/SETUP.md>) to your DSH agent. It contains environment checks, commands and separate approval of the installation, access rights and activation.
+| | Requirement |
+| :-- | :-- |
+| **Phone** | Android 8.0 (API 26) or later |
+| **Computer** | Windows with a supported DeepSeek Harness installation |
+| **Host** | Node.js 24.x, OpenSSL 3, companion plugin |
+| **Connection** | Local Wi-Fi, Tailscale, or an operator-managed relay |
+| **Build tools** | JDK 21 recommended, Android SDK 36 and build-tools 36.0.0 |
 
-1. **Check the requirements.**
+### Connect to your host
 
-   Computer: Windows, DeepSeek Harness `0.2.0-rc.2`, `0.2.1-alpha.1` or `0.2.1-rc.5`, Node.js 24.x, OpenSSL 3. The 0.9.0 target is rc.5 (25 canary checks); the first two are retained on historical full/registry canaries, while rc.4 is unsupported. [Evidence limits](<docs/DSH_CANARY.md#compatibility-evidence>). Phone: Android 8.0+. DSH itself must run on Node 24, not just a suitable executable on PATH.
+1. Read the [installation and pairing guide](docs/SETUP.md) and verify host compatibility.
+2. Build or obtain a **matching** signed Android APK and host plugin package. Verify their provenance and SHA-256 checksums.
+3. Install and activate the companion plugin on your Windows computer with explicit approval.
+4. Install DSeek on your Android device, then pair it with the short-lived QR invitation and verify the host identity.
+5. Open your projects and continue working with your desktop agents.
 
-2. **Download and verify the release files.**
+**Release availability:** This fork does not currently publish downloadable GitHub Releases. Do not assume that upstream APKs are releases of this fork or mix different app/host versions. See [build instructions](docs/BUILD.md) and the [0.9.2 release record](docs/RELEASE_0.9.2.md) for verified artifacts and compatibility notes.
 
-   Open [Releases](https://github.com/pavel-logachev/dsh-mobile/releases). For the selected published release, obtain its signed APK, host ZIP and both SHA-256 sidecars from the same release. Candidate 0.9.0 still requires [final acceptance](<docs/RELEASE_0.9.0.md#verification>); do not invent its asset URLs or substitute an older pair. `UNSIGNED-verification.apk` is verification evidence, not an installable download.
+### Build from source
 
-   Specify the absolute paths to the downloaded files and compare the hashes with the `.sha256` files. If they do not match, stop.
+From the repository root, use the documented toolchains:
 
-   ```powershell
-   $zip = '<ABSOLUTE_DOWNLOADED_HOST_ZIP>'
-   $apk = '<ABSOLUTE_DOWNLOADED_SIGNED_APK>'
-   (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   (Get-FileHash -LiteralPath $apk -Algorithm SHA256).Hash.ToLowerInvariant()
-   # Compare exactly with the release's .sha256 files. A mismatch means STOP.
-   ```
+~~~sh
+# Android (Linux)
+cd android
+./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug
+~~~
 
-3. **Prepare the plugin on the computer.**
+~~~sh
+# Companion plugin (Node.js 24.x)
+cd host
+npm ci
+npm run check
+~~~
 
-   Extract the [installer](<tools/install-host.ps1>) from the archive and read it. In the commands below, replace the placeholders: the path to the script and the computer's address on your home network or in Tailscale. If you do not need an additional address, remove the second element of the array.
+For an isolated **Linux + Nix / Devenv demo** on a USB-connected phone, the repository also includes a reproducible development environment:
 
-   ```powershell
-   $installer = '<ABSOLUTE_REVIEWED_INSTALL_HOST_PS1>'
-   $hosts = @('<ACTUAL_PRIMARY_LAN_OR_TAILSCALE_HOST>', '<OPTIONAL_ADDITIONAL_SAN>')
-   # Remove the second element if not needed. Substitute approved real values locally.
-   & $installer -ZipPath $zip -Hosts $hosts -WhatIf
-   & $installer -ZipPath $zip -Hosts $hosts
-   ```
+~~~sh
+devenv shell
+dseek-build
+~~~
 
-   This step prepares the files and configuration but does not yet connect the plugin to DSH.
+This demo uses synthetic data and **does not execute real agent tasks**. See the [demo guide](docs/DEMO.md) for device connection and setup. For production packaging, signing, and installation, follow the [build guide](docs/BUILD.md) and [Android release guide](docs/ANDROID_RELEASE.md).
 
-4. **Activate the plugin.**
+## Built with
 
-   After reviewing the proposed changes:
+- **Android:** Kotlin, Jetpack Compose, Material 3, Coroutines, OkHttp, Android Keystore.
+- **Desktop companion:** Node.js 24, TypeScript, authenticated HTTPS, event streaming.
+- **Connectivity:** direct LAN, Tailscale, or optional self-hosted encrypted relay.
+- **Developer workflow:** Gradle, automated tests, GitHub Actions, and Nix / Devenv.
 
-   ```powershell
-   & $installer -ZipPath $zip -Hosts $hosts -Activate
-   ```
+The Android source currently identifies itself as **0.9.2** (`versionCode 19`), with a matching host plugin documented in the [0.9.2 release notes](docs/RELEASE_0.9.2.md). The app and host must be updated together; operators of a self-hosted relay should review the corresponding relay update instructions.
 
-   The installer does not restart DSH. If the plugin has not started, follow the troubleshooting steps in the [guide](<docs/SETUP.md>): a restart may be needed, but it is approved separately.
+## Project notes
 
-   If home Wi‑Fi needs a Windows Firewall rule, add it only with the owner's consent and only for the private network. The installer does not change the firewall automatically.
-
-5. **Install the APK on the phone.**
-
-   Allow Android to install apps from the chosen source. Turn this permission off after installation.
-
-6. **Pair the phone with a QR code.**
-
-   On the computer, specify the directory of the installed plugin version and check the configuration:
-
-   ```powershell
-   $plugin = '<EXACT_LOCALAPPDATA_DSHMOBILE_PLUGIN_VERSION_DIRECTORY>'
-   $cli = Join-Path $plugin 'dist/cli.js'
-   $config = Join-Path $env:LOCALAPPDATA 'DSHMobile/host/host.json'
-   node $cli verify-config --config $config
-   ```
-
-   Then choose **one** pairing command. Read-only access to all current and future projects:
-
-   ```powershell
-   node $cli pair --config $config --read all --ttl 300 --qr
-   ```
-
-   Or read access **and running tasks** in all of these projects — only if you agree to give the phone these rights:
-
-   ```powershell
-   node $cli pair --config $config --read all --execute all --ttl 300 --qr
-   ```
-
-   In the app, tap “Scan QR code”, check the computer's address and the certificate fingerprint, then confirm pairing. The camera is used only for scanning; the code is recognized without a network and without Google services.
-
-**To use it away from home,** install Tailscale on the computer and the phone, connect both to your Tailscale network and specify the computer's name when preparing the plugin. You do not need to open a port on your router. The alternative is [your own relay on a VPS](<docs/RELAY_DEPLOYMENT.md>).
-
-**Upgrading to 0.9.0:** upgrade app and host together after verifying signatures and hashes. An APK update must retain the signing certificate; do not uninstall to bypass a signature mismatch. Use the reviewed host installer with `-Upgrade -Activate`: it unmounts the old plugin, waits for listener closure and mounts the whole immutable build. A DSH restart needs separate approval because it ends running turns. Keep a private state backup and follow [upgrade/rollback instructions](<docs/SETUP.md#10-upgrade-rollback-revoke-and-uninstall>) and [release notes](<docs/RELEASE_0.9.0.md#upgrade-and-rollback>). Previous physical results do not establish the new candidate’s behavior.
-
-The current source pair is **0.9.0/0.9.0**. The historical published pair is app **0.8.2** and host **0.7.2** ([historical release](https://github.com/pavel-logachev/dsh-mobile/releases/tag/v0.8.2)); its checks below are not 0.9.0 acceptance.
-
-## Security
-
-- **Agent permissions stay the same.** The plugin runs inside DSH with its permissions. Project filtering is not a sandbox: an agent can do the same from the phone as from the computer. Give the right to run tasks only to trusted devices.
-- **The invitation is a secret.** The QR code is single-use and valid for no more than 15 minutes. Do not publish it, send it to a chat or save it in shared logs. Pairing checks the computer's certificate, its validity period, the address and the pinned fingerprint.
-- **Provider keys are not sent to the phone.** Pairing data is protected by Android Keystore and excluded from backups. The plugin's private files on Windows are accessible only to the owner of the user account.
-- **Revoke a lost phone on the computer.** Signing out of the app locally deletes the pairing data from the phone but does not revoke access on the DSH side.
-- **Notifications do not contain the completed answer.** Failure alerts may include a short summary; lock-screen content is private. Chat names use a localized fallback without fetching a transcript. [Details](<docs/NOTIFICATIONS_0.9.md#durable-watch-and-notification-state>).
-- **The relay does not see chat contents.** It forwards encrypted traffic but sees IP addresses, timing and the amount of data transferred.
-
-Do not expose the DSH web port to the outside and do not disable TLS verification. Details are in the [security overview](<docs/SECURITY.md>).
-
-## Building from source
-
-For a local Linux/Nix demo and screenshots on your own USB-connected Android phone, see the [Devenv demo guide (Spanish)](docs/DEMO.md). This path needs no model API key or production DSH installation. It uses the existing synthetic demo, not a standalone on-phone simulator.
-
-From the repository root, in PowerShell:
-
-```powershell
-cd host;  npm ci; npm ci --prefix ../relay; npm run check   # companion plugin, Node 24; the tests need the neighboring relay
-cd ..\android
-powershell -NoProfile -ExecutionPolicy Bypass -Command "& ../tools/android-build.ps1 -Tasks ':app:assembleDebug', ':app:testDebugUnitTest', ':app:lintDebug'"
-```
-
-JDK 21 is recommended; the Windows helper also supports JDK 17. You need Android SDK platform 36 and build-tools 36.0.0.
-
-A regular release build of the APK is unsigned and cannot be installed as is. Building, packaging the plugin and signing with your own key are described in the [build guide](<docs/BUILD.md>) and the [APK release guide](<docs/ANDROID_RELEASE.md>).
-
-## Historical release 0.8.2 checks
-
-Historical release: app 0.8.2 (versionCode 15) and host 0.7.2; [release notes](https://github.com/pavel-logachev/dsh-mobile/releases/tag/v0.8.2). This table describes only that build, not the currently installed pair or 0.9.0.
-
-| Component | What was checked |
-|---|---|
-| Android 0.8.2 | On Android code 3dc0126: two full JVM runs, 357/357 each; lintDebug — 0 errors (46 warnings, 1 hint). The release helper runs assembleRelease, testDebugUnitTest and lintRelease |
-| APK signature | The same certificate, SHA-256: F9080C63B49A0BDE6B74AA2ADF7E9531D6C4F305978A24D3F5D271A39F1B7B95; v2/v3 schemes, 16 KB alignment; non-debuggable, HTTPS-only |
-| Plugin 0.7.2 | 282/282 with the Cordis module env; without it, 275 pass and 5 skipped (280 total). Independent re-review of the host code: GO after three blockers were fixed |
-| Installer | 28/28 synthetic scenarios; not a check of installation on a phone |
-| Physical phone | OnePlus, Android 16, APK 3dc0126: the sending status after 0.3–0.7 s; sends in a new and an existing chat and after more than 110 s idle; send → Home ×2 — one delivered prompt each time; the upgrade over 0.8.1 kept pairing |
-| Not verified with instruments on a phone | Notification latency and tap routing with host 0.7.2; auto-retry and the “not sent” banner on a real network switch (the send button was disabled during reconnect); delivery under real Doze |
-| APK permissions | INTERNET, CAMERA, POST_NOTIFICATIONS, FOREGROUND_SERVICE, FOREGROUND_SERVICE_SPECIAL_USE, ACCESS_NETWORK_STATE and the app's own signature-level receiver permission. No telemetry and no Google services |
-
-## Limitations
-
-- **The computer and DSH must stay on.** The phone does not run an agent. One pairing targets one computer; the project list considers the first 100 registered projects.
-- **This is intentionally a native subset, not desktop parity.** Plugin/skill management is not exposed. Action approvals stay on the desktop because there is no verified plugin API for them; they are distinct from answerable agent questions.
-- **Notifications are best effort, without FCM/UnifiedPush.** There is no idle service/permanent connection notification or coverage banner. A pending phone task still uses an FGS: its notification cannot be guaranteed invisible on all OEMs. Valid watches/outbox restore after process death and unlocked reboot subject to pairing, permission and OS guards. After force-stop, launch the app manually. Doze, battery saving, offline devices, 24-hour expiry or eviction from the 32-watch bound can prevent delivery. [Exact limits](<docs/NOTIFICATIONS_0.9.md>).
-- **Offline content is a bounded stale/read-only cache.** At most 8 snapshots, 3500 KiB of serialized snapshot UTF-8, 24-hour age, each snapshot at most 2 MiB; the index is bounded separately. Cache is not authorization, command reconciliation or a full archive. Fresh snapshots contain at most 100 messages/2 MiB; older-history recovery is bounded to 16 pages/16 MiB. Upstream JSONL currently reads the whole log before those limits apply.
-- **Updating DSH requires compatibility verification.** Setup may fill the version from `dsh --version`; the runtime plugin checks the configured declaration, not the installed version. Only the exact [matrix entries](<docs/DSH_CANARY.md#compatibility-evidence>) are supported.
-- **A dropped connection does not prove non-delivery.** Automatic retry requires transport proof that **request headers** were not sent: at most three attempts with the same requestId. Never automatically resend after admission; a lost response or receipt404 never proves non-execution. A proven not-sent failure keeps the draft and offers manual Retry; for `uncertain`, inspect DSH first.
-- **Recovery is not exactly-once.** A witness detects only provable local rollback. Missing/rolled-back DB and witness require a manual hold before reopening admission. Epoch is an operator decision record, not client-visible fencing: after release a lost requestId can be admitted as new. [Procedure](<docs/SETUP.md#restoring-the-command-ledger-from-a-backup>).
-
-### Does the name require a DeepSeek model or subscription?
-
-No. DSH Mobile is a companion to the DeepSeek Harness host, not a purchase of a particular DeepSeek model or plan. Models, providers and billing stay on the computer. This project establishes no cost/task-count comparison with other subscriptions.
+- DSeek requires a running computer and DSH instance; **there is no offline agent execution** on the phone.
+- It exposes a deliberately focused mobile workflow, not every feature of the desktop application.
+- Offline content may be a limited, read-only cached snapshot; network failures do not imply a queued command was never executed.
+- Secure pairing does not make broad agent/tool permissions safe. Grant execute access only to trusted devices.
 
 ## Documentation
 
-- [Installation, upgrade and removal](<docs/SETUP.md>)
-- [Architecture](<docs/ARCHITECTURE.md>)
-- [Mobile client protocol](<docs/PROTOCOL.md>)
-- [Security](<docs/SECURITY.md>)
-- [DSH integration](<docs/DSH_INTEGRATION.md>)
-- [Deploying your own relay](<docs/RELAY_DEPLOYMENT.md>) and [its protocol](<docs/RELAY_PROTOCOL.md>)
-- [Building from source](<docs/BUILD.md>)
-- [Signing and releasing the Android APK](<docs/ANDROID_RELEASE.md>)
-- [Contributing](<CONTRIBUTING.md>)
+[Setup & pairing](docs/SETUP.md) ·
+[Architecture](docs/ARCHITECTURE.md) ·
+[Security](docs/SECURITY.md) ·
+[Protocol](docs/PROTOCOL.md) ·
+[Build](docs/BUILD.md) ·
+[UI languages](docs/I18N.md) ·
+[Relay deployment](docs/RELAY_DEPLOYMENT.md) ·
+[Contributing](CONTRIBUTING.md)
 
-## Need something similar?
+## Attribution & license
 
-This project was built by [Pavel Logachev](https://github.com/pavel-logachev). I build websites, web services, Telegram bots, apps and automation for your task: I work out the task, build the solution and launch it myself. 20 years in IT: first as an engineer, then as a project manager. Tell me about your task [by email](mailto:pavel@logachev.net) or [on Telegram](https://t.me/pavel_logachev) — a 20–30 minute review is free, and you do not need a ready-made specification. Prices and other projects are on [logachev.net](https://logachev.net/) and [in my profile](https://github.com/pavel-logachev).
+DSeek is an **independent, unofficial** Android companion for DeepSeek Harness, not a product or service endorsed by DeepSeek. This repository is based on the MIT-licensed DSH Mobile project by **Pavel Logachev**; the original copyright notice remains in [LICENSE](LICENSE). Modifications in this fork are maintained in [4beru/dseek-ai](https://github.com/4beru/dseek-ai).
 
-## License
-
-[MIT](<LICENSE>) © 2026 Pavel Logachev. Third-party dependencies are distributed under their own licenses.
+MIT License © 2026 Pavel Logachev, with subsequent contributions under the repository's license.

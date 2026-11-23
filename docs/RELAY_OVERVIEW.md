@@ -1,6 +1,6 @@
-# DSH Mobile opaque relay 0.2
+# DSeek / DSH Mobile — opaque relay 0.2
 
-This Node 24 service is managed by the operator. It routes bounded WebSocket streams carrying the companion's existing end-to-end TLS. It has no DSH adapter, model execution, user account service, public provisioning API or application cryptography. The wire format is defined in [the transport contract](<../docs/RELAY_PROTOCOL.md>).
+This Node 24 service is managed by the operator. It routes bounded WebSocket streams carrying the companion's existing end-to-end TLS. It has no DSH adapter, model execution, user account service, public provisioning API or application cryptography. The wire format is defined in [the transport contract](<RELAY_PROTOCOL.md>).
 
 ## Build and local administration
 
